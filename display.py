@@ -1,10 +1,10 @@
-from PIL import Image, ImageDraw, ImageFont
+from PIL import ImageDraw
 from weather_data import get_weather
 
 
 def windvane(img):
     """
-    Draws wind data onto 'img' object. Left side shows text data, right side shows direction on compass rose
+    Draws wind data onto supplied PIL 'img' object. Left side shows text data, right side shows direction on compass rose
     """
     # create image draw object
     draw = ImageDraw.Draw(im=img, mode='RGB')
@@ -45,3 +45,20 @@ def windvane(img):
     # wind direction
     draw.pieslice(xy=screenright, start=(winddir - 15), end=(winddir + 15),
                   fill=(255, 255, 0), outline=(255, 255, 0))
+
+
+def weather(img):
+    '''
+    '''
+
+    # create image draw object
+    draw = ImageDraw.Draw(im=img, mode='RGB')
+
+    # get weather
+    conditions = get_weather()
+
+
+def moonphases(img):
+    '''
+    '''
+    pass

@@ -4,6 +4,9 @@ import config
 
 
 def get_weather():
+    '''
+    Returns dict with temp, humidity, uv, windSpeed, windGust, windDir, pressure, precipRate, precipTotal, date, day
+    '''
 
     url = "https://api.weather.com/v2/pws/observations/current?stationId=" + \
         config.STATION+"&format=json&units=e&apiKey="+config.APIKEY
