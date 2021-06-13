@@ -32,6 +32,7 @@ def get_weather():
                   'precipRate': current_conditions['observations'][0]['imperial']['precipRate'],
                   'precipTotal': current_conditions['observations'][0]['imperial']['precipTotal'],
                   'date': (current_conditions['observations'][0]['obsTimeLocal'].split(' ')[0].split('-', 1)[1]),
-                  'day': forecast['dayOfWeek'][0]}
+                  'day': forecast['dayOfWeek'][0],
+                  'moonPhase': forecast['moonPhase']}
 
     return(conditions)

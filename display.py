@@ -47,7 +47,7 @@ def windvane(img):
                   fill=(255, 255, 0), outline=(255, 255, 0))
 
 
-def weather(img):
+def thermostat(img):
     '''
     '''
 
@@ -58,7 +58,13 @@ def weather(img):
     conditions = get_weather()
 
 
-def moonphases(img):
+def sunandmoon(img):
+    '''
+    '''
+    pass
+
+
+def outlook(img):
     '''
     '''
     pass
