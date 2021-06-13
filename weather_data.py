@@ -29,10 +29,14 @@ def get_weather():
                   'windGust': current_conditions['observations'][0]['imperial']['windGust'],
                   'windDir': current_conditions['observations'][0]['winddir'],
                   'pressure': current_conditions['observations'][0]['imperial']['pressure'],
-                  'precipRate': current_conditions['observations'][0]['imperial']['precipRate'],
-                  'precipTotal': current_conditions['observations'][0]['imperial']['precipTotal'],
                   'date': (current_conditions['observations'][0]['obsTimeLocal'].split(' ')[0].split('-', 1)[1]),
                   'day': forecast['dayOfWeek'][0],
-                  'moonPhase': forecast['moonPhase']}
-
+                  'moonPhase': forecast['moonPhase'],
+                  'sunrise': forecast['sunriseTimeLocal'][0],
+                  'sunset': forecast['sunsetTimeLocal'][0],
+                  'high': forecast['temperatureMax'][0],
+                  'low': forecast['temperatureMin'][0],
+                  'narrative': forecast['narrative'][0]
+                  }
+    print(conditions)
     return(conditions)
