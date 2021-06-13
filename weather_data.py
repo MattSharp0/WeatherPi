@@ -38,5 +38,5 @@ def get_weather():
                   'low': forecast['temperatureMin'][0],
                   'narrative': forecast['narrative'][0]
                   }
-    print(conditions)
+    # print(conditions)
     return(conditions)

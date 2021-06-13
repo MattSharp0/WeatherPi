@@ -1,6 +1,5 @@
 '''
-Run this code on Pi ONLY. 
-INKY library cannot be installed on other OS. 
+Run this code on Pi 
 '''
 
 from PIL import Image
@@ -9,7 +8,8 @@ from inky.auto import auto
 
 inky_display = auto()
 
-img = Image.new('P', (inky_display.WIDTH, inky_display.HEIGHT))
+img = Image.new('P', (inky_display.WIDTH, inky_display.HEIGHT),
+                color=inky_display.WHITE)
 
 display.windvane(img=img)
 inky_display.set_image(img)

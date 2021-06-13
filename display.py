@@ -1,5 +1,15 @@
 from PIL import ImageDraw
 from weather_data import get_weather
+try:
+    from inky.auto import auto
+    inky_display = auto()
+    black = inky_display.BLACK
+    white = inky_display.WHITE
+    yellow = inky_display.YELLOW
+except ImportError:
+    black = (0, 0, 0)
+    white = (255, 255, 255)
+    yellow = (255, 255, 0)
 
 
 def windvane(img):
@@ -20,7 +30,7 @@ def windvane(img):
 
     # Wind text
     wind = f"{day}, {date}\n \nWind Speed: {windspd}mph \nGusting: {windgust}mph \nPressure: {pressure}in"
-    draw.text(xy=(24, 24), text=wind)
+    draw.text(xy=(24, 24), text=wind, fill=black)
 
     # correct for draw start angle ()
     winddir -= 90
@@ -29,22 +39,22 @@ def windvane(img):
     screenright = [(149, 24), (225, 100)]
 
     # cardinal direction lines
-    draw.line(xy=[(187, 20), (187, 104)], fill=(255, 255, 255,), width=1)
-    draw.line(xy=[(145, 62), (229, 62)], fill=(255, 255, 255,), width=1)
+    draw.line(xy=[(187, 20), (187, 104)], fill=black, width=1)
+    draw.line(xy=[(145, 62), (229, 62)], fill=black, width=1)
 
     # Cardinal directions
-    draw.text(xy=(185, 7), text='N', fill=(255, 255, 0))
-    draw.text(xy=(185, 105), text='S', fill=(255, 255, 255))
-    draw.text(xy=(235, 57), text='E', fill=(255, 255, 255))
-    draw.text(xy=(135, 57), text='W', fill=(255, 255, 255))
+    draw.text(xy=(185, 7), text='N', fill=yellow)
+    draw.text(xy=(185, 105), text='S', fill=black)
+    draw.text(xy=(235, 57), text='E', fill=black)
+    draw.text(xy=(135, 57), text='W', fill=black)
 
     # compass perimeter
     draw.arc(xy=screenright, start=(winddir + 15),
-             end=(winddir - 15), fill=(255, 255, 255))
+             end=(winddir - 15), fill=black)
 
     # wind direction
     draw.pieslice(xy=screenright, start=(winddir - 15), end=(winddir + 15),
-                  fill=(255, 255, 0), outline=(255, 255, 0))
+                  fill=yellow, outline=yellow)
 
 
 def thermostat(img):
