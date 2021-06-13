@@ -14,10 +14,11 @@ height = 122
 nightmode = True
 
 if nightmode:
-    img = Image.new(mode='RGB', size=(width, height), color=(0, 0, 0))
+    color = (0, 0, 0)
 else:
-    img = Image.new(mode='RGB', size=(width, height), color=(240, 240, 240))
+    color = (240, 240, 240)
 
+img = Image.new(mode='RGB', size=(width, height), color=color))
 display.windvane(img, nightmode)
 
 img.show()

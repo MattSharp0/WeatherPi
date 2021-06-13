@@ -8,9 +8,15 @@ from inky.auto import auto
 
 inky_display = auto()
 
-img = Image.new('P', (inky_display.WIDTH, inky_display.HEIGHT),
-                color=inky_display.WHITE)
+nightmode = True
+if nightmode:
+    base_color = inky_display.BLACK
+else:
+    base_color = inky_display.WHITE
 
-display.windvane(img=img)
+img = Image.new('P', (inky_display.WIDTH, inky_display.HEIGHT),
+                color=base_color)
+
+display.windvane(img=img, nightmode=nightmode)
 inky_display.set_image(img)
 inky_display.show()
