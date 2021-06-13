@@ -7,7 +7,7 @@ def windvane(img):
     Draws wind data onto supplied PIL 'img' object. Left side shows text data, right side shows direction on compass rose
     """
     # create image draw object
-    draw = ImageDraw.Draw(im=img, mode='RGB')
+    draw = ImageDraw.Draw(im=img)
 
     # get wind data
     conditions = get_weather()
@@ -52,7 +52,7 @@ def thermostat(img):
     '''
 
     # create image draw object
-    draw = ImageDraw.Draw(im=img, mode='RGB')
+    draw = ImageDraw.Draw(im=img)
 
     # get weather
     conditions = get_weather()
