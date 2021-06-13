@@ -1,5 +1,7 @@
-from PIL import ImageDraw
+from typing import Text
+from PIL import ImageDraw, ImageFont
 from weather_data import get_weather
+from font_fredoka_one import FredokaOne
 try:
     from inky.auto import auto
     inky_display = auto()
@@ -11,13 +13,27 @@ except ImportError:
     white = (255, 255, 255)
     yellow = (255, 255, 0)
 
+font = ImageFont.truetype(FredokaOne, 16)
+font_sm = ImageFont.truetype(FredokaOne, 14)
 
-def windvane(img):
+
+def windvane(img, nightmode):
     """
     Draws wind data onto supplied PIL 'img' object. Left side shows text data, right side shows direction on compass rose
     """
     # create image draw object
     draw = ImageDraw.Draw(im=img)
+
+    if nightmode:
+        try:
+            black = inky_display.WHITE
+        except:
+            black = (255, 255, 255)
+    else:
+        try:
+            black = inky_display.BLACK
+        except:
+            black = (0, 0, 0)
 
     # get wind data
     conditions = get_weather()
@@ -29,8 +45,8 @@ def windvane(img):
     date = conditions['date']
 
     # Wind text
-    wind = f"{day}, {date}\n \nWind Speed: {windspd}mph \nGusting: {windgust}mph \nPressure: {pressure}in"
-    draw.text(xy=(24, 24), text=wind, fill=black)
+    wind = f"{day}, {date}\n~~Wind~~\nSpeed: {windspd}mph \nGusting: {windgust}mph \nPressure: {pressure}in"
+    draw.text(xy=(14, 10), text=wind, fill=black, font=font)
 
     # correct for draw start angle ()
     winddir -= 90
@@ -43,14 +59,14 @@ def windvane(img):
     draw.line(xy=[(145, 62), (229, 62)], fill=black, width=1)
 
     # Cardinal directions
-    draw.text(xy=(185, 7), text='N', fill=yellow)
-    draw.text(xy=(185, 105), text='S', fill=black)
-    draw.text(xy=(235, 57), text='E', fill=black)
-    draw.text(xy=(135, 57), text='W', fill=black)
+    draw.text(xy=(182, 3), text='N', fill=yellow, font=font)
+    draw.text(xy=(183, 103), text='S', fill=black, font=font_sm)
+    draw.text(xy=(231, 54), text='E', fill=black, font=font_sm)
+    draw.text(xy=(131, 54), text='W', fill=black, font=font_sm)
 
     # compass perimeter
     draw.arc(xy=screenright, start=(winddir + 15),
-             end=(winddir - 15), fill=black)
+             end=(winddir - 15), fill=black, width=3)
 
     # wind direction
     draw.pieslice(xy=screenright, start=(winddir - 15), end=(winddir + 15),

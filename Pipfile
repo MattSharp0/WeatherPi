@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 requests = "*"
 pillow = "*"
+font-fredoka-one = "*"
 
 [dev-packages]
 autopep8 = "*"

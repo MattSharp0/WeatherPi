@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "06f1cff3895687f65cd2e2eb75195185c473afa865f982c34b5f59e50ef1cc63"
+            "sha256": "d4dec748203da4e762a4c69cc8d0b7d990c1e67bcae514fbbf21db74c28330fb"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -30,6 +30,15 @@
             ],
             "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'",
             "version": "==4.0.0"
+        },
+        "font-fredoka-one": {
+            "hashes": [
+                "sha256:5eb2928eaf61d45271b38d88509ba27a73585dfb5b4760c727c75482e68207b7",
+                "sha256:cd5fd4682f7cc79107d006793717c41bf902093c570b576b8219766052297417",
+                "sha256:f177fdb46dcb7be565a68ece3a7b353a92cf038554a037f57b6303f6a5478ff8"
+            ],
+            "index": "pypi",
+            "version": "==0.0.4"
         },
         "idna": {
             "hashes": [
