@@ -1,7 +1,8 @@
-from typing import Text
-from PIL import ImageDraw, ImageFont
+from PIL import ImageFont, ImageDraw
 from weather_data import get_weather
 from font_fredoka_one import FredokaOne
+
+# allows for testing without inky library
 try:
     from inky.auto import auto
     inky_display = auto()
@@ -13,17 +14,16 @@ except ImportError:
     white = (255, 255, 255)
     yellow = (255, 255, 0)
 
+# set up fonts
 font = ImageFont.truetype(FredokaOne, 16)
 font_sm = ImageFont.truetype(FredokaOne, 14)
 
 
-def windvane(img, nightmode):
+def draw_windvane(img, nightmode):
     """
-    Draws wind data onto supplied PIL 'img' object. Left side shows text data, right side shows direction on compass rose
+    Takes params 'draw' (DrawImage obj) and 'nightmode' (boolean). Prints wind test data on left side of img and a compass with wind direction on right side.
     """
-    # create image draw object
-    draw = ImageDraw.Draw(im=img)
-
+    # changes colors if nightmode is True
     if nightmode:
         try:
             black = inky_display.WHITE
@@ -34,6 +34,9 @@ def windvane(img, nightmode):
             black = inky_display.BLACK
         except:
             black = (0, 0, 0)
+
+    # Create canvass
+    draw = ImageDraw.Draw(im=img)
 
     # get wind data
     conditions = get_weather()
@@ -46,9 +49,11 @@ def windvane(img, nightmode):
 
     # Wind text
     wind = f"{day}, {date}\n~~Wind~~\nSpeed: {windspd}mph \nGusting: {windgust}mph \nPressure: {pressure}in"
+
+    # draw text
     draw.text(xy=(14, 10), text=wind, fill=black, font=font)
 
-    # correct for draw start angle ()
+    # correct for draw default start angle at 90deg
     winddir -= 90
 
     # def screen area
@@ -73,24 +78,59 @@ def windvane(img, nightmode):
                   fill=yellow, outline=yellow)
 
 
-def thermostat(img):
+def draw_temperature(img, nightmode):
     '''
+    Takes params 'draw' (DrawImage obj) and 'nightmode' (boolean). Prints temp data on left side of img and weather icon on the right.
     '''
 
-    # create image draw object
+    # changes colors if nightmode is True
+    if nightmode:
+        try:
+            black = inky_display.WHITE
+        except:
+            black = (255, 255, 255)
+    else:
+        try:
+            black = inky_display.BLACK
+        except:
+            black = (0, 0, 0)
+
+    # Create canvass
     draw = ImageDraw.Draw(im=img)
 
-    # get weather
+    # get the weather
     conditions = get_weather()
+    day = conditions['day']
+    date = conditions['date']
+    temp = conditions['temp']
+    high = conditions['high']
+    low = conditions['low']
+    uv = int(conditions['uv'])
+    humidity = conditions['humidity']
+
+    # degrees F symbol
+    degf = u'\N{DEGREE SIGN}' + 'F'
+
+    # change None to -
+    if high == None:
+        high = '--'
+
+    if low == None:
+        low = '--'
+    # create temp text
+    temptext = f'{day}, {date}\nTemp:  {temp}{degf}\nH/L:  {high}{degf} | {low}{degf}\nUV Index:  {uv}\nHumidity: {humidity}%'
+
+    # draw text
+    draw.text(xy=(14, 10), text=temptext, fill=black, font=font)
 
 
-def sunandmoon(img):
+def draw_celestial_info(img, nightmode):
     '''
     '''
     pass
 
 
-def outlook(img):
+def draw_outlook(img, nightmode):
     '''
     '''
     pass

@@ -3,8 +3,8 @@ Locally executable program to test weatherPi functions without Inky libraries.
 Shows images as temp .png file.
 '''
 
-import display
 from PIL import Image
+import display
 
 # define image for local test (pHat display size = 250x122)
 width = 250
@@ -18,8 +18,15 @@ if nightmode:
 else:
     color = (240, 240, 240)
 
-img = Image.new(mode='RGB', size=(width, height), color=color))
-display.windvane(img, nightmode)
+windvane = Image.new(mode='RGB', size=(width, height), color=color)
+temperature = Image.new(mode='RGB', size=(width, height), color=color)
 
-img.show()
-img.close()
+display.draw_windvane(windvane, nightmode)
+
+display.draw_temperature(temperature, nightmode)
+
+windvane.show()
+temperature.show()
+
+windvane.close()
+temperature.close()
