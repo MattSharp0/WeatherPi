@@ -36,7 +36,8 @@ def get_weather():
                   'sunset': forecast['sunsetTimeLocal'][0],
                   'high': forecast['temperatureMax'][0],
                   'low': forecast['temperatureMin'][0],
-                  'narrative': forecast['narrative'][0]
+                  'narrative': forecast['narrative'][0],
+                  'iconCode': forecast['daypart'][0]['iconCode'][0]
                   }
     # print(conditions)
     return(conditions)

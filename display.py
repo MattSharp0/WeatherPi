@@ -1,4 +1,4 @@
-from PIL import ImageFont, ImageDraw
+from PIL import ImageFont, ImageDraw, Image
 from weather_data import get_weather
 from font_fredoka_one import FredokaOne
 
@@ -21,7 +21,7 @@ font_sm = ImageFont.truetype(FredokaOne, 14)
 
 def draw_windvane(img, nightmode):
     """
-    Takes params 'draw' (DrawImage obj) and 'nightmode' (boolean). Prints wind test data on left side of img and a compass with wind direction on right side.
+    Takes 'img' and 'nightmode' (boolean). Prints wind test data on left side of img and a compass with wind direction on right side.
     """
     # changes colors if nightmode is True
     if nightmode:
@@ -80,7 +80,7 @@ def draw_windvane(img, nightmode):
 
 def draw_temperature(img, nightmode):
     '''
-    Takes params 'draw' (DrawImage obj) and 'nightmode' (boolean). Prints temp data on left side of img and weather icon on the right.
+    Takes 'img' and 'nightmode' (boolean). Prints temp data on left side of img and weather icon on the right.
     '''
 
     # changes colors if nightmode is True
@@ -107,6 +107,7 @@ def draw_temperature(img, nightmode):
     low = conditions['low']
     uv = int(conditions['uv'])
     humidity = conditions['humidity']
+    icon_code = conditions['iconCode']
 
     # degrees F symbol
     degf = u'\N{DEGREE SIGN}' + 'F'
@@ -117,16 +118,34 @@ def draw_temperature(img, nightmode):
 
     if low == None:
         low = '--'
+
     # create temp text
     temptext = f'{day}, {date}\nTemp:  {temp}{degf}\nH/L:  {high}{degf} | {low}{degf}\nUV Index:  {uv}\nHumidity: {humidity}%'
 
     # draw text
     draw.text(xy=(14, 10), text=temptext, fill=black, font=font)
 
+    # use icon code to create image name
+    icon_img = str(icon_code) + '.png'
+
+    # load icon image
+    icon = Image.open(f'icons/{icon_img}')
+    icon.show()
+    icon.close
+
 
 def draw_celestial_info(img, nightmode):
     '''
+    Takes params 'img' and 'nightmode' (boolean). Prints sunrise/set data on left side of screen
     '''
+    conditions = get_weather()
+    day = conditions['day']
+    date = conditions['date']
+    sunrise = conditions['sunrise']
+    sunset = conditions['sunset']
+    moon = conditions['moonPhase']
+
+    text = f'{day}, {date}\nSunrise: {sunrise}\nSunset: {sunset}\n '
     pass
 
 
