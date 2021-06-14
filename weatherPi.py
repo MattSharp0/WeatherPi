@@ -26,7 +26,7 @@ inky_display.set_image(temperature)
 inky_display.show()
 print('drawing temp page')
 
-time.sleep(90)
+time.sleep(45)
 temperature.close()
 
 windvane = Image.new(
