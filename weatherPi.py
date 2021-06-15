@@ -15,7 +15,7 @@ inky_display = auto()
 img1 = Image.new(
     'P', (inky_display.WIDTH, inky_display.HEIGHT), inky_display.BLACK)
 
-display.draw_temperature(img1)
+display.temperature(img1)
 
 inky_display.set_image(img1)
 inky_display.show()
