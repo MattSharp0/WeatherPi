@@ -126,13 +126,13 @@ def draw_temperature(img, nightmode):
     draw.text(xy=(14, 10), text=temptext, fill=black, font=font)
 
     # use icon code to create image name
-    icon_img = str(icon_code) + '.png'
+    icon_num = str(icon_code) + '.png'
 
     # load icon image
-    icon = Image.open(f'icons/{icon_img}')
+    icon = Image.open(f'icons/{icon_num}')
     # icon.show()
 
-    Image.paste(img, icon, (149, 24))
+    img.paste(icon, (149, 24))
     icon.close
 
 
