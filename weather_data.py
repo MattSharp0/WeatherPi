@@ -2,6 +2,11 @@ import json
 import requests
 import config
 
+'''
+Need to add error handling for early evening:
+Temp - windDir show none
+'''
+
 
 def get_weather():
     '''
@@ -39,5 +44,9 @@ def get_weather():
                   'narrative': forecast['narrative'][0],
                   'iconCode': forecast['daypart'][0]['iconCode'][0]
                   }
+
+    if conditions['iconCode'] == None:
+        conditions['iconCode'] = forecast['daypart'][0]['iconCode'][1]
+
     # print(conditions)
     return(conditions)

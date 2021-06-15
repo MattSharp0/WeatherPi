@@ -130,7 +130,9 @@ def draw_temperature(img, nightmode):
 
     # load icon image
     icon = Image.open(f'icons/{icon_img}')
-    icon.show()
+    # icon.show()
+
+    Image.paste(img, icon, (149, 24))
     icon.close
 
 
