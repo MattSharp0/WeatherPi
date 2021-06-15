@@ -10,23 +10,13 @@ import display
 width = 250
 height = 122
 
-# set to true for black background
-nightmode = True
+img1 = Image.new(mode='RGB', size=(width, height), color=(0, 0, 0))
+img2 = Image.new(mode='RGB', size=(width, height), color=(0, 0, 0))
 
-if nightmode:
-    color = (0, 0, 0)
-else:
-    color = (240, 240, 240)
+display.temperature(img1)
+img1.show()
+img1.close()
 
-windvane = Image.new(mode='RGB', size=(width, height), color=color)
-temperature = Image.new(mode='RGB', size=(width, height), color=color)
-
-display.draw_windvane(windvane, nightmode)
-
-display.draw_temperature(temperature, nightmode)
-
-windvane.show()
-temperature.show()
-
-windvane.close()
-temperature.close()
+display.windvane(img2)
+img2.show()
+img2.close()

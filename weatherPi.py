@@ -3,7 +3,7 @@ Run this code on Pi
 '''
 
 from os import wait
-from PIL import Image, ImageDraw
+from PIL import Image
 import time
 import display
 from inky.auto import auto
@@ -11,30 +11,25 @@ from inky.auto import auto
 
 inky_display = auto()
 
-nightmode = True
-if nightmode:
-    base_color = inky_display.BLACK
-else:
-    base_color = inky_display.WHITE
 
-temperature = Image.new(
-    'P', (inky_display.WIDTH, inky_display.HEIGHT), base_color)
+img1 = Image.new(
+    'P', (inky_display.WIDTH, inky_display.HEIGHT), inky_display.BLACK)
 
-display.draw_temperature(temperature, nightmode)
+display.draw_temperature(img1)
 
-inky_display.set_image(temperature)
+inky_display.set_image(img1)
 inky_display.show()
 print('drawing temp page')
 
 time.sleep(45)
-temperature.close()
+img1.close()
 
-windvane = Image.new(
-    'P', (inky_display.WIDTH, inky_display.HEIGHT), base_color)
+img2 = Image.new(
+    'P', (inky_display.WIDTH, inky_display.HEIGHT), inky_display.BLACK)
 
-display.draw_windvane(windvane, nightmode)
+display.windvane(img2)
 
-inky_display.set_image(windvane)
+inky_display.set_image(img2)
 inky_display.show()
 print('drawing windvane page')
-windvane.close()
+img2.close()
