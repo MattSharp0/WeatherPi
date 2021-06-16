@@ -36,7 +36,7 @@ def get_weather():
                   'pressure': current_conditions['observations'][0]['imperial']['pressure'],
                   'date': (current_conditions['observations'][0]['obsTimeLocal'].split(' ')[0].split('-', 1)[1]),
                   'day': forecast['dayOfWeek'][0],
-                  'moonPhase': forecast['moonPhase'],
+                  'moonPhase': forecast['moonPhase'][0],
                   'sunrise': forecast['sunriseTimeLocal'][0],
                   'sunset': forecast['sunsetTimeLocal'][0],
                   'high': forecast['temperatureMax'][0],
@@ -49,4 +49,6 @@ def get_weather():
         conditions['iconCode'] = forecast['daypart'][0]['iconCode'][1]
 
     # print(conditions)
+    print(conditions['moonPhase'])
+    print(conditions['sunrise'])
     return(conditions)
