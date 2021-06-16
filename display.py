@@ -105,9 +105,9 @@ def temperature(img):
     icon_num = str(icon_code) + '.png'
 
     # load icon image
-    icon = Image.open(f'icons/{icon_num}')
+    # icon = Image.open(f'icons/{icon_num}')
     # icon.show()
-
+    icon = Image.open('icons/38 copy.png')
     img.paste(icon, (144, 12))
     icon.close
 
