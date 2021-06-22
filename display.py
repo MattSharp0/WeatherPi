@@ -1,5 +1,5 @@
 from PIL import ImageFont, ImageDraw, Image
-from weather_data import get_weather
+from w_data import get_weather
 from font_fredoka_one import FredokaOne
 
 # allows for testing without inky library
@@ -23,8 +23,6 @@ def windvane(img):
     """
     Takes 'img' and prints wind test data on left side of img and a compass with wind direction on right side.
     """
-    # Create canvass
-    draw = ImageDraw.Draw(im=img)
 
     # get wind data
     conditions = get_weather()
@@ -38,41 +36,48 @@ def windvane(img):
     # Wind text
     wind = f"{day}, {date}\n~~Wind~~\nSpeed: {windspd}mph \nGusting: {windgust}mph \nPressure: {pressure}in"
 
+    # Create draw interface
+    draw = ImageDraw.Draw(im=img)
+
     # draw text
     draw.text(xy=(14, 10), text=wind, fill=white, font=font)
-
-    # correct for draw default start angle at 90deg
-    winddir -= 90
 
     # def screen area
     screenright = [(149, 24), (225, 100)]
 
-    # cardinal direction lines
+    # draw cardinal direction lines
     draw.line(xy=[(187, 20), (187, 104)], fill=white, width=1)
     draw.line(xy=[(145, 62), (229, 62)], fill=white, width=1)
 
-    # Cardinal directions
+    # draw cardinal directions text
     draw.text(xy=(182, 3), text='N', fill=yellow, font=font)
     draw.text(xy=(183, 103), text='S', fill=white, font=font_sm)
     draw.text(xy=(231, 54), text='E', fill=white, font=font_sm)
     draw.text(xy=(131, 54), text='W', fill=white, font=font_sm)
 
-    # compass perimeter
+    # correct for draw default start angle at 90deg
+    winddir -= 90
+
+    # draw compass perimeter
     draw.arc(xy=screenright, start=(winddir + 15),
              end=(winddir - 15), fill=white, width=3)
 
-    # wind direction
+    # draw wind direction
     draw.pieslice(xy=screenright, start=(winddir - 15), end=(winddir + 15),
                   fill=yellow, outline=yellow)
+
+    # display on inky
+    try:
+        inky_display.set_image(img)
+        inky_display.show
+    except:
+        pass
 
 
 def temperature(img):
     '''
     Takes 'img' and prints temp data on left side of img and weather icon on the right.
     '''
-
-    # Create canvass
-    draw = ImageDraw.Draw(im=img)
 
     # get the weather
     conditions = get_weather()
@@ -98,6 +103,9 @@ def temperature(img):
     # create temp text
     temptext = f'{day}, {date}\nTemp:  {temp}{degf}\nH/L:  {high}{degf} | {low}{degf}\nUV Index:  {uv}\nHumidity: {humidity}%'
 
+    # Create canvass
+    draw = ImageDraw.Draw(im=img)
+
     # draw text
     draw.text(xy=(14, 10), text=temptext, fill=white, font=font)
 
@@ -111,6 +119,13 @@ def temperature(img):
     img.paste(icon, (144, 12))
     icon.close
 
+    # display on inky
+    try:
+        inky_display.set_image(img)
+        inky_display.show
+    except:
+        pass
+
 
 def celestial_info(img):
     '''
@@ -122,12 +137,28 @@ def celestial_info(img):
     sunrise = conditions['sunrise']
     sunset = conditions['sunset']
     moon = conditions['moonPhase']
+    icon_code = conditions['iconCode']
 
-    text = f'{day}, {date}\nSunrise: {sunrise}\nSunset: {sunset}\n '
-    pass
+    text = f'{day}, {date}\nSunrise: {sunrise}\nSunset: {sunset}\nMoonphase: \n{moon}'
 
+    # Create canvass
+    draw = ImageDraw.Draw(im=img)
 
-def outlook(img):
-    '''
-    '''
-    pass
+    # draw text
+    draw.text(xy=(14, 10), text=text, fill=white, font=font)
+
+    # use icon code to create image name
+    icon_num = str(icon_code) + '.png'
+
+    # load icon image
+    icon = Image.open(f'icons/{icon_num}')
+
+    img.paste(icon, (144, 12))
+    icon.close
+
+    # display on inky
+    try:
+        inky_display.set_image(img)
+        inky_display.show
+    except:
+        pass
