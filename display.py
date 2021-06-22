@@ -114,7 +114,9 @@ def temperature(img):
 
     # load icon image
     icon = Image.open(f'icons/{icon_num}')
-    # icon.show()
+
+    # test image
+    # icon = Image.open('38.png')
 
     img.paste(icon, (144, 12))
     icon.close
@@ -147,11 +149,13 @@ def celestial_info(img):
     # draw text
     draw.text(xy=(14, 10), text=text, fill=white, font=font)
 
-    # use icon code to create image name
-    icon_num = str(icon_code) + '.png'
+    moon_icon = moon.replace(' ', '_').lower() + '.png'
 
     # load icon image
-    icon = Image.open(f'icons/{icon_num}')
+    icon = Image.open(f'moonicons/{moon_icon}')
+
+    # test image:
+    # icon = Image.open('moon-phase-symbol-14.png')
 
     img.paste(icon, (144, 12))
     icon.close
